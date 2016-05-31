@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 12, 2015 11:27:14 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.me.nodel.Place" table="PLACE">
+        <id name="placeId" type="int">
+            <column name="PLACEID" />
+            <generator class="increment" />
+        </id>
+        <property name="address" type="java.lang.String">
+            <column name="ADDRESS" />
+        </property>
+        <property name="lat" type="java.lang.String">
+            <column name="LAT" />
+        </property>
+        <property name="lng" type="java.lang.String">
+            <column name="LNG" />
+        </property>
+       
+         <set name="source" table="CREATETRIP" inverse="true" lazy="true" fetch="select" >
+         <key>
+         <column name="Source" not-null="true"></column>
+         </key>
+         <one-to-many class="com.me.nodel.CreateTrip" />
+        </set>
+         <set name="dest" table="CREATETRIP" inverse="true" lazy="true" fetch="select" >
+         <key>
+         <column name="Dest" not-null="true"></column>
+         </key>
+         <one-to-many class="com.me.nodel.CreateTrip" />
+        </set>
+        
+        
+    </class>
+</hibernate-mapping>

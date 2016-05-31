@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 12, 2015 11:30:10 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.me.nodel.CreateTrip" table="CREATETRIP">
+        <id name="tripId" type="int">
+            <column name="TRIPID" />
+            <generator class="increment" />
+        </id>
+        <property name="s_date" type="java.util.Date">
+            <column name="S_DATE" />
+        </property>
+        <property name="e_date" type="java.util.Date">
+            <column name="E_DATE" />
+        </property>
+        <property name="cost" type="int">
+            <column name="COST" />
+        </property>
+        <property name="message" type="java.lang.String">
+            <column name="MESSAGE" />
+        </property>
+        <property name="seats" type="int">
+            <column name="SEATS" />
+        </property>
+        <property name="status" type="java.lang.String">
+            <column name="STATUS" />
+        </property>
+        
+        <many-to-one name="user" class="com.me.nodel.User" fetch="join">
+            <column name="USERID" />
+        </many-to-one>
+        
+        <many-to-one name="source" class="com.me.nodel.Place" fetch="join">
+            <column name="SOURCE" />
+        </many-to-one>
+        
+       <many-to-one name="dest" class="com.me.nodel.Place" fetch="join">
+            <column name="DEST" />
+        </many-to-one>
+        
+         <property name="distance" type="float">
+            <column name="DISTANCE" />
+        </property>
+        
+        <property name="time" type="java.lang.String">
+            <column name="TIME" />
+        </property>
+        
+        <set name="compDetails" table="COMPANION" inverse="true" lazy="true" fetch="select" >
+         <key>
+         <column name="TRIPID" not-null="true"></column>
+         </key>
+         <one-to-many class="com.me.nodel.Companion" />
+        </set>
+        
+        
+         <set name="messageStatus" table="Messages" inverse="true" lazy="true" fetch="select" >
+         <key>
+         <column name="TRIPID" not-null="true"></column>
+         </key>
+         <one-to-many class="com.me.nodel.Messages" />
+        </set>
+    </class>
+</hibernate-mapping>

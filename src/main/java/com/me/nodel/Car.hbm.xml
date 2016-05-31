@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 13, 2015 12:32:39 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.me.nodel.Car" table="CAR">
+        <id name="carId" type="int">
+            <column name="CARID" />
+           <generator class="foreign" >
+            <param name="property">user</param>
+            </generator>
+        </id>
+        <property name="model" type="java.lang.String">
+            <column name="MODEL" />
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE" />
+        </property>
+        <property name="seats" type="int">
+            <column name="SEATS" />
+        </property>
+        <property name="carno" type="int">
+            <column name="CARNO" />
+        </property>
+          <property name="imageFile" type="java.lang.String">
+            <column name="IMAGEFILE" />
+        </property>
+        
+            <one-to-one name="user" class="com.me.nodel.User"></one-to-one>
+    </class>
+</hibernate-mapping>

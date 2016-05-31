@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+			<bean id="searchDao" class="com.me.dao.SearchDao" ></bean>
+			<bean id="viewDetailsDao" class="com.me.dao.ViewDetailsDao" ></bean>
+			<bean id="userDao" class="com.me.dao.UserDao" ></bean>
+			<bean id="messageDao" class="com.me.dao.MessageDao" ></bean>
+			<bean id="paymentDao" class="com.me.dao.PaymentDao" ></bean>
+			<bean id="placeDao" class="com.me.dao.PlaceDao" ></bean>
+			<bean id="carDao" class="com.me.dao.CarDao" ></bean>
+			<bean id="drivingDao" class="com.me.dao.DrivingDao" ></bean>
+			<bean id="signUpValidator" class="com.me.validator.SignUpValidator" ></bean>
+			<bean id="carValidator" class="com.me.validator.CarValidator" ></bean>
+			<bean id="paymentValidator" class="com.me.validator.PaymentValidator" ></bean>
+			<bean id="addressValidator" class="com.me.validator.AddressValidator" ></bean>
+			<bean id="drivingValidator" class="com.me.validator.DrivingValidator" ></bean>
+</beans>

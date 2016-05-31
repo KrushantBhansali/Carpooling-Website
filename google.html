@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+
+      <style>
+        html,
+body,
+#map-canvas {
+  height: 300px;
+  width: 800px;
+  margin: auto;
+  padding: auto;
+}
+
+       </style>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+     
+        <script type="text/javascript">
+ 
+        function initialize() {
+        var address = (document.getElementById('my-address'));
+         var address1 = (document.getElementById('my-address1'));
+        var autocomplete = new google.maps.places.Autocomplete(address);
+ var autocomplete1 = new google.maps.places.Autocomplete(address1);
+
+        autocomplete.setTypes(['geocode']);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+
+
+         autocomplete1.setTypes(['geocode']);
+        google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+            var place = autocomplete1.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+        var address = '';
+        if (place.address_components) {
+            address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+
+        }
+      });
+
+    var address1 = '';
+        if (place.address_components) {
+            address1 = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+
+        }
+      });
+}
+function codeAddress() {
+    geocoder = new google.maps.Geocoder();
+    var address = document.getElementById("my-address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+
+    //  alert("Latitude: "+results[0].geometry.location.lat());
+      //alert("Longitude: "+results[0].geometry.location.lng());
+
+         fromlat =parseFloat(results[0].geometry.location.lat());
+          fromlong =parseFloat(results[0].geometry.location.lng());
+alert("Latitude"+fromlat);      
+} 
+
+      else {
+        alert("Geocode was not successful for the following reason1: " + status);
+      }
+    });
+  }
+function codeAddress1() {
+    geocoder = new google.maps.Geocoder();
+    var address = document.getElementById("my-address1").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+
+   //   alert("Latitude: "+results[0].geometry.location.lat());
+    //  alert("Longitude: "+results[0].geometry.location.lng());
+
+          tolat =parseFloat(results[0].geometry.location.lat());
+         tolong =parseFloat(results[0].geometry.location.lng());
+
+alert("Longitude"+tolong); 
+      } 
+
+      else {
+        alert("Geocode was not successful for the following reason2: " + status);
+      }
+    });
+  }
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+
+function mapLocation() {
+  var directionsDisplay;
+  var directionsService = new google.maps.DirectionsService();
+  var map;
+
+  function initialize1() {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+
+ var chicago = new google.maps.LatLng(37.334818, -121.884886);
+//var fromloc = new google.maps.LatLng(fromlat,fromlong);
+    var mapOptions = {
+      zoom: 7,
+//center: fromloc
+center: chicago
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    directionsDisplay.setMap(map);
+    google.maps.event.addDomListener(document.getElementById('routebtn'), 'click', calcRoute);
+  }
+
+  function calcRoute() {
+	var start = new google.maps.LatLng(fromlat, fromlong);
+//var start = new google.maps.LatLng(37.334818, -121.884886);
+//var end = new google.maps.LatLng(37.441883, -122.143019);
+ var end = new google.maps.LatLng(tolat, tolong);
+    var request = {
+      origin: start,
+      destination: end,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        directionsDisplay.setMap(map);
+      } else {
+        alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+      }
+    });
+  }
+  alert("test"+document.getElementById('my-address'));
+  google.maps.event.addDomListener(window, 'load', initialize1);
+}
+mapLocation();
+
+
+
+
+
+        </script>
+    </head>
+    <body>
+        <input type="text" id="my-address" onblur="codeAddress()" />
+        <input type="text" id="my-address1" onblur="codeAddress1()" />
+        <button id="getCords" onblur="codeAddress();">getLat&Long</button>
+
+
+          
+         <input type="button" id="routebtn" value="route" />
+      <div id="map-canvas"></div>
